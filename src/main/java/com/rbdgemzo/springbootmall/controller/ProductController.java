@@ -1,5 +1,6 @@
 package com.rbdgemzo.springbootmall.controller;
 
+import com.rbdgemzo.springbootmall.constant.ProductCategory;
 import com.rbdgemzo.springbootmall.dto.ProductRequest;
 import com.rbdgemzo.springbootmall.model.Product;
 import com.rbdgemzo.springbootmall.service.ProductService;
@@ -15,6 +16,15 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) String search) {
+        List<Product> productList = productService.getProducts(category, search);
+
+        return ResponseEntity.status(HttpStatus.OK).body(productList);
+    }
 
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
@@ -58,12 +68,5 @@ public class ProductController {
         productService.deleteProductById(productId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts() {
-        List<Product> productList = productService.getProducts();
-
-        return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
 }
