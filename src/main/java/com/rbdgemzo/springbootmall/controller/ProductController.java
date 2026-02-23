@@ -1,6 +1,7 @@
 package com.rbdgemzo.springbootmall.controller;
 
 import com.rbdgemzo.springbootmall.constant.ProductCategory;
+import com.rbdgemzo.springbootmall.dto.ProductQueryParams;
 import com.rbdgemzo.springbootmall.dto.ProductRequest;
 import com.rbdgemzo.springbootmall.model.Product;
 import com.rbdgemzo.springbootmall.service.ProductService;
@@ -21,7 +22,10 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProducts(
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search) {
-        List<Product> productList = productService.getProducts(category, search);
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
+        List<Product> productList = productService.getProducts(productQueryParams);
 
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }

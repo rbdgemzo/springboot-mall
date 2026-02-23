@@ -1,13 +1,13 @@
 package com.rbdgemzo.springbootmall.service;
 
-import com.rbdgemzo.springbootmall.constant.ProductCategory;
+import com.rbdgemzo.springbootmall.dto.ProductQueryParams;
 import com.rbdgemzo.springbootmall.dto.ProductRequest;
 import com.rbdgemzo.springbootmall.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getProducts(ProductCategory category, String search);
+    List<Product> getProducts(ProductQueryParams productQueryParams);
 
     Product getProductById(Integer productId);
 
